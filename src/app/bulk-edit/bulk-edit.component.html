@@ -1,0 +1,59 @@
+<div mat-dialog-content>
+  <mat-progress-spinner *ngIf="!shifts" class="mx-auto" mode="indeterminate"> </mat-progress-spinner>
+  <form *ngIf="shifts?.length" [formGroup]="bulkEditForm">
+    <div formArrayName="employees" *ngFor="let item of employees.controls; let i = index" [ngClass]="{ 'pt-4': i > 0 }">
+      <div [formGroupName]="i">
+        <p class="font-bold">{{ i + 1 }}. Employee</p>
+        <div class="grid grid-cols">
+          <div>
+            <mat-form-field class="w-full" appearance="fill">
+              <mat-label>Employee name:</mat-label>
+              <input matInput formControlName="name" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="grid grid-cols-2">
+          <div>
+            <mat-form-field class="w-full" appearance="fill">
+              <mat-label>Employee hourly rate:</mat-label>
+              <input matInput formControlName="hourlyRate" />
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="w-full" appearance="fill">
+              <mat-label>Employee overtime hourly rate:</mat-label>
+              <input matInput formControlName="overtimeHourlyRate" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider class="py-4"></mat-divider>
+        <div class="pt-4" *ngIf="showShiftsTable">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="clockIn">
+              <th mat-header-cell *matHeaderCellDef>Clock In</th>
+              <td mat-cell *matCellDef="let shift">
+                <input type="datetime-local" [value]="shift.clockIn" />
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="clockOut">
+              <th mat-header-cell *matHeaderCellDef>Clock Out</th>
+              <td mat-cell *matCellDef="let shift">
+                <input type="datetime-local" [value]="shift.clockOut" />
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['clockIn', 'clockOut']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['clockIn', 'clockOut']"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="gap-4">
+  <button mat-raised-button (click)="dialogRef.close()">Close</button>
+  <button mat-raised-button (click)="onSave()">Save</button>
+  <mat-slide-toggle [(ngModel)]="showShiftsTable">Change Shifts (not implemented yet)</mat-slide-toggle>
+</div>

@@ -1,0 +1,83 @@
+<main class="p-10">
+  <div *ngIf="!(dashboardResponse | async)?.isLoading" class="flex text-center justify-center items-center">
+    <app-general-info [generalInfo]="generalInfo"></app-general-info>
+  </div>
+
+  <div class="pt-3">
+    <mat-progress-spinner *ngIf="(dashboardResponse | async)?.isLoading" class="mx-auto" mode="indeterminate">
+    </mat-progress-spinner>
+
+    <div *ngIf="!(dashboardResponse | async)?.isLoading">
+      <div class="mx-auto flex pb-4 justify-end">
+        <button mat-icon-button [disabled]="!selection.selected.length" (click)="openEditModal()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          [disabled]="!selection.selected.length || (dashboardResponse | async)?.isLoading"
+          (click)="reset()"
+        >
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+      <table [dataSource]="dataSource" mat-table class="mat-elevation-z4">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+              (change)="toggleAll()"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              [aria-label]="checkboxLabel()"
+            >
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="selection.toggle(row)"
+              [checked]="selection.isSelected(row)"
+              [aria-label]="checkboxLabel(row)"
+            >
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalClockedInTime">
+          <th mat-header-cell *matHeaderCellDef>Total clocked time</th>
+          <td mat-cell *matCellDef="let element">{{ element.totalClockedInTime | number: '1.2-2' }} h</td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalRegularAmount">
+          <th mat-header-cell *matHeaderCellDef>Total paid regular hours</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.totalRegularAmount | currency }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalOvertimeAmount">
+          <th mat-header-cell *matHeaderCellDef>Total paid overtime hours</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.totalOvertimeAmount | currency }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)">
+          <ng-container *matNoDataRow>
+            <td mat-cell>No data!</td>
+          </ng-container>
+        </tr>
+      </table>
+    </div>
+  </div>
+</main>

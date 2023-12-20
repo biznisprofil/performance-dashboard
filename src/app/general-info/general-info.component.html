@@ -1,0 +1,53 @@
+<div class="flex flex-wrap">
+  <div class="w-full md:w-1/2 lg:w-1/4 xl:w-1/4 p-4">
+    <mat-card class="h-48 bg-white shadow-lg rounded-lg">
+      <mat-card-content>
+        <h2 class="text-xl font-bold mb-2">
+          {{ 'Total Number of Employees' | uppercase }}
+        </h2>
+        <p class="text-3xl text-gray-600 font-bold">
+          {{ generalInfo?.totalEmployees }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="w-full md:w-1/2 lg:w-1/4 xl:w-1/4 p-4">
+    <mat-card class="h-48 bg-white shadow-lg rounded-lg">
+      <mat-card-content>
+        <h2 class="text-xl font-bold mb-2">
+          {{ 'Total Clocked in Time' | uppercase }}
+        </h2>
+        <p class="text-3xl text-gray-600 font-bold">
+          {{ generalInfo?.totalClockedInTime | number: '1.2-2' }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="w-full md:w-1/2 lg:w-1/4 xl:w-1/4 p-4">
+    <mat-card class="h-48 bg-white shadow-lg rounded-lg">
+      <mat-card-content>
+        <h2 class="text-xl font-bold mb-2">
+          {{ 'Total amount paid for regular hours' | uppercase }}
+        </h2>
+        <p class="text-3xl text-gray-600 font-bold">
+          {{ generalInfo?.totalRegularAmount | currency }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="w-full md:w-1/2 lg:w-1/4 xl:w-1/4 p-4">
+    <mat-card class="h-48 bg-white shadow-lg rounded-lg">
+      <mat-card-content>
+        <h2 class="text-xl font-bold mb-2">
+          {{ 'Total overtime amount paid for overtime hours' | uppercase }}
+        </h2>
+        <p class="text-3xl text-gray-600 font-bold">
+          {{ generalInfo?.totalOvertimeAmount | currency }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
