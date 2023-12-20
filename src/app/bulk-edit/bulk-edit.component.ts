@@ -1,16 +1,21 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, AbstractControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EmployeeList } from '../core/models/employee-list.model';
-import { Shift } from '../core/models/shift.model';
-import { MatTableDataSource } from '@angular/material/table';
-import { EmployeeService, ShiftService } from '@app/services';
-import { Employee } from '../core/models/employee.model';
+import { Component, Inject } from "@angular/core";
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  AbstractControl,
+} from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { EmployeeList } from "../core/models/employee-list.model";
+import { Shift } from "../core/models/shift.model";
+import { MatTableDataSource } from "@angular/material/table";
+import { EmployeeService, ShiftService } from "@app/services";
+import { Employee } from "../core/models/employee.model";
 
 @Component({
-  selector: 'app-bulk-edit',
-  templateUrl: './bulk-edit.component.html',
-  styleUrls: ['./bulk-edit.component.scss'],
+  selector: "app-bulk-edit",
+  templateUrl: "./bulk-edit.component.html",
+  styleUrls: ["./bulk-edit.component.scss"],
 })
 export class BulkEditComponent {
   bulkEditForm!: FormGroup;
@@ -33,6 +38,7 @@ export class BulkEditComponent {
     const ids: string[] = this.data.employees.map((e: EmployeeList) => e.id);
     this.shiftService.listByEmployeesId(ids).subscribe((response) => {
       this.shifts = response;
+      console.log(this.shifts);
       this.dataSource = new MatTableDataSource(this.shifts);
       this.createForm();
     });
@@ -42,7 +48,7 @@ export class BulkEditComponent {
     this.bulkEditForm = this.fb.group({
       employees: this.createEmployeesForm(this.data.employees),
     });
-    this.employees = this.bulkEditForm.get('employees') as FormArray;
+    this.employees = this.bulkEditForm.get("employees") as FormArray;
   }
 
   createEmployeesForm(employees: EmployeeList[]): FormArray {
@@ -53,7 +59,9 @@ export class BulkEditComponent {
           name: this.fb.control(employee.name, []),
           hourlyRate: this.fb.control(employee.hourlyRate, []),
           overtimeHourlyRate: this.fb.control(employee.overtimeHourlyRate, []),
-          shifts: this.createShiftsForm(this.shifts.filter((s: Shift) => s.employeeId === employee.id)),
+          shifts: this.createShiftsForm(
+            this.shifts.filter((s: Shift) => s.employeeId === employee.id),
+          ),
         }),
       ),
     );
@@ -132,14 +140,12 @@ export class BulkEditComponent {
       this.employeeService.patch(employee.id, employee).subscribe((data) => {
         this.dialogRef.close(data);
       });
-      // const shifts = employee.shifts;
+      const shifts = employee.shifts;
       //// Not the best way to do this, it should be refactored together with template
       // for (const shift of shifts) {
-      //   if (shift.isDirty) {
-      //     this.shiftService.patch(shift.id, shift).subscribe(data => {
-      //       console.log(data);
-      //     });
-      //   }
+      //   this.shiftService.patch(shift.shiftId, shift).subscribe((data) => {
+      //     this.dialogRef.close(data);
+      //   });
       // }
     }
   }
