@@ -1,21 +1,16 @@
-import { Component, Inject } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  AbstractControl,
-} from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { EmployeeList } from "../core/models/employee-list.model";
-import { Shift } from "../core/models/shift.model";
-import { MatTableDataSource } from "@angular/material/table";
-import { EmployeeService, ShiftService } from "@app/services";
-import { Employee } from "../core/models/employee.model";
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, AbstractControl } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { EmployeeList } from '../core/models/employee-list.model';
+import { Shift } from '../core/models/shift.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { EmployeeService, ShiftService } from '@app/services';
+import { Employee } from '../core/models/employee.model';
 
 @Component({
-  selector: "app-bulk-edit",
-  templateUrl: "./bulk-edit.component.html",
-  styleUrls: ["./bulk-edit.component.scss"],
+  selector: 'app-bulk-edit',
+  templateUrl: './bulk-edit.component.html',
+  styleUrls: ['./bulk-edit.component.scss'],
 })
 export class BulkEditComponent {
   bulkEditForm!: FormGroup;
@@ -48,7 +43,7 @@ export class BulkEditComponent {
     this.bulkEditForm = this.fb.group({
       employees: this.createEmployeesForm(this.data.employees),
     });
-    this.employees = this.bulkEditForm.get("employees") as FormArray;
+    this.employees = this.bulkEditForm.get('employees') as FormArray;
   }
 
   createEmployeesForm(employees: EmployeeList[]): FormArray {
@@ -59,9 +54,7 @@ export class BulkEditComponent {
           name: this.fb.control(employee.name, []),
           hourlyRate: this.fb.control(employee.hourlyRate, []),
           overtimeHourlyRate: this.fb.control(employee.overtimeHourlyRate, []),
-          shifts: this.createShiftsForm(
-            this.shifts.filter((s: Shift) => s.employeeId === employee.id),
-          ),
+          shifts: this.createShiftsForm(this.shifts.filter((s: Shift) => s.employeeId === employee.id)),
         }),
       ),
     );
