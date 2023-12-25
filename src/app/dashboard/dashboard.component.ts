@@ -1,6 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { EmployeeService } from '@app/services';
-import { Observable, shareReplay, map, filter, switchMap, takeUntil, Subject } from 'rxjs';
+import {
+  Observable,
+  shareReplay,
+  map,
+  filter,
+  switchMap,
+  takeUntil,
+  Subject,
+} from 'rxjs';
 import { DashboardData } from '../core/models/dashboard-data.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,7 +28,14 @@ import { BulkEditComponent } from '../bulk-edit/bulk-edit.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
-  displayedColumns = ['select', 'name', 'email', 'totalClockedInTime', 'totalRegularAmount', 'totalOvertimeAmount'];
+  displayedColumns = [
+    'select',
+    'name',
+    'email',
+    'totalClockedInTime',
+    'totalRegularAmount',
+    'totalOvertimeAmount',
+  ];
 
   selection = new SelectionModel<any>(true, []);
 
@@ -24,7 +43,8 @@ export class DashboardComponent {
 
   generalInfo!: GeneralInfo | undefined;
 
-  readonly dashboardResponse: Observable<DashboardData<EmployeeList[]>> = this.generateDashboard();
+  readonly dashboardResponse: Observable<DashboardData<EmployeeList[]>> =
+    this.generateDashboard();
 
   constructor(
     readonly employeeService: EmployeeService,
@@ -63,7 +83,9 @@ export class DashboardComponent {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.position + 1
+    }`;
   }
 
   openEditModal(): void {

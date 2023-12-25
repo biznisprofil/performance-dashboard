@@ -1,5 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  AbstractControl,
+} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EmployeeList } from '../core/models/employee-list.model';
 import { Shift } from '../core/models/shift.model';
@@ -54,7 +59,9 @@ export class BulkEditComponent {
           name: this.fb.control(employee.name, []),
           hourlyRate: this.fb.control(employee.hourlyRate, []),
           overtimeHourlyRate: this.fb.control(employee.overtimeHourlyRate, []),
-          shifts: this.createShiftsForm(this.shifts.filter((s: Shift) => s.employeeId === employee.id)),
+          shifts: this.createShiftsForm(
+            this.shifts.filter((s: Shift) => s.employeeId === employee.id),
+          ),
         }),
       ),
     );
@@ -80,11 +87,11 @@ export class BulkEditComponent {
           ...employee,
           shifts: employee.shifts
             ? employee.shifts.map((shift: Shift) => {
-                return {
-                  ...shift,
-                  clockIn: clockIn,
-                };
-              })
+              return {
+                ...shift,
+                clockIn: clockIn,
+              };
+            })
             : [],
         };
       }),
@@ -98,11 +105,11 @@ export class BulkEditComponent {
           ...employee,
           shifts: employee.shifts
             ? employee.shifts.map((shift: Shift) => {
-                return {
-                  ...shift,
-                  clockOut: clockOut,
-                };
-              })
+              return {
+                ...shift,
+                clockOut: clockOut,
+              };
+            })
             : [],
         };
       }),

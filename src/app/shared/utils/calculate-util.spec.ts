@@ -1,4 +1,8 @@
-import { calculateShiftHours, calculateShiftPayment, generateDashboardInformation } from './calculate-util';
+import {
+  calculateShiftHours,
+  calculateShiftPayment,
+  generateDashboardInformation,
+} from './calculate-util';
 
 describe('Shift Calculations', () => {
   it('should calculate shift hours correctly', () => {
@@ -73,8 +77,13 @@ describe('Dashboard Information', () => {
       },
     ];
 
-    const dashboardInformation = generateDashboardInformation(employees, shifts);
+    const dashboardInformation = generateDashboardInformation(
+      employees,
+      shifts,
+    );
 
-    expect(dashboardInformation.employeeDetails.length).toEqual(employees.length);
+    expect(dashboardInformation.employeeDetails.length).toEqual(
+      employees.length,
+    );
   });
 });

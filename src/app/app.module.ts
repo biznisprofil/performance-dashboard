@@ -23,7 +23,12 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, GeneralInfoComponent, BulkEditComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    GeneralInfoComponent,
+    BulkEditComponent,
+  ],
   imports: [
     BrowserModule,
     MatDialogModule,

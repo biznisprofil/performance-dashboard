@@ -1,5 +1,6 @@
 <div mat-dialog-content>
-  <mat-progress-spinner *ngIf="!shifts" class="mx-auto" mode="indeterminate"> </mat-progress-spinner>
+  <mat-progress-spinner *ngIf="!shifts" class="mx-auto" mode="indeterminate">
+  </mat-progress-spinner>
   <form *ngIf="shifts?.length" [formGroup]="bulkEditForm">
     <div formArrayName="employees" *ngFor="let item of employees.controls; let i = index" [ngClass]="{ 'pt-4': i > 0 }">
       <div [formGroupName]="i">

@@ -1,20 +1,33 @@
 <main class="p-10">
-  <div *ngIf="!(dashboardResponse | async)?.isLoading" class="flex text-center justify-center items-center">
+  <div
+    *ngIf="!(dashboardResponse | async)?.isLoading"
+    class="flex text-center justify-center items-center"
+  >
     <app-general-info [generalInfo]="generalInfo"></app-general-info>
   </div>
 
   <div class="pt-3">
-    <mat-progress-spinner *ngIf="(dashboardResponse | async)?.isLoading" class="mx-auto" mode="indeterminate">
+    <mat-progress-spinner
+      *ngIf="(dashboardResponse | async)?.isLoading"
+      class="mx-auto"
+      mode="indeterminate"
+    >
     </mat-progress-spinner>
 
     <div *ngIf="!(dashboardResponse | async)?.isLoading">
       <div class="mx-auto flex pb-4 justify-end">
-        <button mat-icon-button [disabled]="!selection.selected.length" (click)="openEditModal()">
+        <button
+          mat-icon-button
+          [disabled]="!selection.selected.length"
+          (click)="openEditModal()"
+        >
           <mat-icon>edit</mat-icon>
         </button>
         <button
           mat-icon-button
-          [disabled]="!selection.selected.length || (dashboardResponse | async)?.isLoading"
+          [disabled]="
+            !selection.selected.length || (dashboardResponse | async)?.isLoading
+          "
           (click)="reset()"
         >
           <mat-icon>clear</mat-icon>
@@ -54,7 +67,9 @@
 
         <ng-container matColumnDef="totalClockedInTime">
           <th mat-header-cell *matHeaderCellDef>Total clocked time</th>
-          <td mat-cell *matCellDef="let element">{{ element.totalClockedInTime | number: '1.2-2' }} h</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.totalClockedInTime | number: '1.2-2' }} h
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="totalRegularAmount">
@@ -72,7 +87,11 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)">
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="selection.toggle(row)"
+        >
           <ng-container *matNoDataRow>
             <td mat-cell>No data!</td>
           </ng-container>

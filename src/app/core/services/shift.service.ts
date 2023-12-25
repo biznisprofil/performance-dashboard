@@ -16,7 +16,11 @@ export class ShiftService {
   listByEmployeesId(ids: string[]): Observable<Shift[]> {
     return this.http
       .get<Shift[]>(`${environment.api}/${this.routeUrl}`)
-      .pipe(map((shifts: Shift[]) => shifts.filter((el) => ids.includes(el.employeeId))));
+      .pipe(
+        map((shifts: Shift[]) =>
+          shifts.filter((el) => ids.includes(el.employeeId)),
+        ),
+      );
   }
 
   list(): Observable<Shift[]> {
@@ -24,6 +28,9 @@ export class ShiftService {
   }
 
   patch(shiftId: number, body: Shift): Observable<Shift[]> {
-    return this.http.patch<Shift[]>(`${environment.api}/${this.routeUrl}/${shiftId}`, body);
+    return this.http.patch<Shift[]>(
+      `${environment.api}/${this.routeUrl}/${shiftId}`,
+      body,
+    );
   }
 }

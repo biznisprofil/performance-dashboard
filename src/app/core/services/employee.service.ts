@@ -41,6 +41,9 @@ export class EmployeeService {
   }
 
   patch(employeeId: number, body: Employee): Observable<Employee[]> {
-    return this.http.patch<Employee[]>(`${environment.api}/${this.routeUrl}/${employeeId}`, body);
+    return this.http.patch<Employee[]>(
+      `${environment.api}/${this.routeUrl}/${employeeId}`,
+      body,
+    );
   }
 }
